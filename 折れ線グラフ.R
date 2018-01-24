@@ -1,4 +1,5 @@
-#5歳階級　人口　棒グラフ
+#５歳階級　折れ線グラフ
+#区名を最大値のX座標,Y座標に表示する
 
 ##################################################
 #データ準備
@@ -15,12 +16,14 @@ write.csv(data_total, "20180101_total.csv")
 data <- read.csv("20180101_total.csv", check.names=F, stringsAsFactor=F)
 
 ##################################################
-#棒グラフ
-#24区分をファイルに書き出し
+#24区の５歳階級別年齢を折れ線グラフで可視化
+#区名をwhichとmaxを使って最大値のcolのインデックス,Y座標に表示する
+
 for(i in 1:24){
-  quartz(type="pdf", file=sprintf("区別５歳階級別推計人口_%d%s.pdf", i, data[i,3]))
-  .main=paste(data[i,3], "　５歳階級別　推計人口　2018年1月1日現在", sep="")
-  par(new=TRUE, family="HiraKakuProN-W3", xpd=TRUE)
-  barplot(as.integer(data[i,6:26]), width=0.9, col=2, xlim=c(1, 21), ylim=c(0, 15000), main=.main, xlab="", ylab="人", names.arg=c("０~４歳","５～９歳","10～14歳","15～19歳","20～24歳","25～29歳","30～34歳","35～39歳","40～44歳","45～49歳","50～54歳","55～59歳","60～64歳","65～69歳","70～74歳","75～79歳","80～84歳","85～89歳","90～94歳","95～99歳","100歳以上"), las=2)
-  dev.off()
+ par(new=TRUE, family="HiraKakuProN-W3", xpd=TRUE, xaxt="n")
+ plot(c(1:21), data[i,6:26], col=c(i), xlim=c(1, 21), ylim=c(0, 15000), main="区別　５歳階級別　推計人口　2018年1月1日現在", xlab="年齢", ylab="人")
+ lines(c(1:21), data[i,6:26], col=c(i))
+ text(which.max(data[i,6:26]), max(data[i,6:26])+500, labels=data[i,3], cex=0.8)
+ par(xaxt="s")
+ axis(side=1, at=1:21, labels=colnames(data)[6:26], cex=0.25)
 }
