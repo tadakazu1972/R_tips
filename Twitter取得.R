@@ -1,4 +1,4 @@
-# Rで特定アカウントのtweet取得
+# Rでtweet取得
 # 前作業1: https://apps.twitter.com/　にアクセス
 # アプリのCallback URL: http://127.0.0.1:1410　を設定
 # APPNAME, CONSUMERKEY, CONSUMERSECRETをあとで使用する
@@ -17,7 +17,11 @@ twitter_token = create_token(
  consumer_key = CONSUMERKEY,
  consumer_secret = CONSUMERSECRET )
 
+#特定アカウントのツイート取得
 tweet = get_timeline("nishiyodo_ku", n = 100, token = twitter_token)
+
+#キーワード検索でツイート取得
+x <- search_tweets("東西区", include_rts = FALSE)
 
 #概要
 str(tweet)
