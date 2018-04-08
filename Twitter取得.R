@@ -5,6 +5,12 @@
 # 事前インストールしたパッケージ:
 # rtweet, rjson, DBI, httr, base64enc, httpuv
 library(rtweet)
+library(tm)
+library(RMeCab)
+library(dplyr)
+library(purrr)
+library(stringr)
+library(wordcloud)
 
 setwd("~/Documents/TweetXX")
 
@@ -23,9 +29,6 @@ tweet = get_timeline("nishiyodo_ku", n = 100, token = twitter_token)
 #キーワード検索でツイート取得
 x <- search_tweets("東西区", include_rts = FALSE)
 
-#ツイートした日時とテキストを抽出 $created_atが２番目、$textが５番目
-data <- tweet[, c(2,5)]
-write.csv(data, "tweet_some.csv")
 
 #概要
 str(tweet)
@@ -33,9 +36,25 @@ str(tweet)
 #ツイート表示
 tweet$text
 
+
+#ツイートをひとつのファイルに保存
+tweet1 <- tweet$text
+tweets_all = ""
+for (i in 1:length((tweet1))){
+  tweets_all = paste(tweets_all, tweet1[i], seq="")
+}
+write.table(tweets_all, "tweetsAllNishiyodo.txt")
+
+
 #ツイートのみをcsvとして保存
 csv = tweet$text
 write.csv(csv, "tweet_data.csv")
+
+
+#ツイートした日時とテキストを抽出 $created_atが２番目、$textが５番目
+data <- tweet[, c(2,5)]
+write.csv(data, "tweet_some.csv")
+
 
 #取得したツイートをファイルとして保存。テキストデータではない！
 save(tweet, "tweet_XX.dat")
