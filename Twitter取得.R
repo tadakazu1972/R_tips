@@ -23,6 +23,10 @@ tweet = get_timeline("nishiyodo_ku", n = 100, token = twitter_token)
 #キーワード検索でツイート取得
 x <- search_tweets("東西区", include_rts = FALSE)
 
+#ツイートした日時とテキストを抽出 $created_atが２番目、$textが５番目
+data <- tweet[, c(2,5)]
+write.csv(data, "tweet_some.csv")
+
 #概要
 str(tweet)
 
