@@ -7,12 +7,7 @@
 
 #ライブラリ
 library(rtweet)
-library(tm)
-library(RMeCab)
 library(dplyr)
-library(purrr)
-library(stringr)
-library(wordcloud)
 
 ＃作業ディレクトリ設定
 setwd("~/Documents/TweetXX")
@@ -30,14 +25,36 @@ twitter_token = create_token(
 tweet = get_timeline("nishiyodo_ku", n = 100, token = twitter_token)
 
 
-#キーワード検索でツイート取得
-tweet <- search_tweets("東西区", include_rts = FALSE)
+#キーワード検索でツイート取得 15分制約最大18000件にすると５分？くらいかかる
+tweet <- search_tweets("東西区", n=18000, include_rts = FALSE)
 
 #取得した概要確認
 str(tweet)
 
 #ツイート表示
 tweet$text
+
+#################################################
+#　時間ごとにツイートを集計
+
+#ツイートした日時とテキストを抽出 $created_atが２番目、$textが５番目
+data <- tweet[, c(2,5)]
+write.csv(data, "tweet_some.csv")
+
+library(lubridate)
+
+#分ごとにツイート件数を集計
+time_tweet <- tweet %>% group_by(m = floor_date(created_at, unit = "minute")) %>% summarise(count = n())
+
+#とりあえず可視化
+par(family="HiraKakuProN-W3")
+plot(time_tweet, type="l")
+
+#################################################
+#Word Cloud
+
+library(RMeCab)
+library(wordcloud)
 
 #ツイートをすべてつなぎ合わせて、ひとつのファイルに保存
 tweet1 <- tweet$text
@@ -47,8 +64,6 @@ for (i in 1:length((tweet1))){
 }
 write.table(tweets_all, "xxx.txt")
 
-#################################################
-#Word Cloud
 #テキストファイルから形態素解析
 docDF0 = docDF("xxx.txt", type=1)
 
@@ -98,13 +113,8 @@ csv = tweet$text
 write.csv(csv, "tweet_data.csv")
 
 
-#ツイートした日時とテキストを抽出 $created_atが２番目、$textが５番目
-data <- tweet[, c(2,5)]
-write.csv(data, "tweet_some.csv")
-
-
 #取得したツイートをファイルとして保存。テキストデータではない！
-save(tweet, "tweet_XX.dat")
+save(tweet, file="tweet_XX.dat")
 
 #保存したツイートのファイルを読み込み
 load("tweet_xx.dat")
