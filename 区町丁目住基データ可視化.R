@@ -57,16 +57,16 @@ points(kigyo2$経度, kigyo2$緯度, pch=17, col="blue")
 #　０歳〜５歳までを一気にpdfで書き出す
 
 #区名
-kuname <- "西成区"
+kuname <- "旭区"
 
 #ファイル接頭番号
-kuindex <- "24"
+kuindex <- "16"
 
 #シェープファイル読込
-shape <- st_read("h27ka27122.shp") 
+shape <- st_read("h27ka27117.shp") 
 
 #住民基本台帳データ読込
-data1 <- read_csv("24nisinariJyukiH2909.csv", locale=locale(encoding="SJIS")) 
+data1 <- read_csv("16asahiJyukiH2909.csv", locale=locale(encoding="SJIS")) 
 
 #男女別が「計」のデータだけ抽出
 data2 <- data1 %>% filter(data1$男女別=="計")
