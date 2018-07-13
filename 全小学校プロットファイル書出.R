@@ -19,7 +19,7 @@ shape <- st_read("h27_did_27.shp")
 master <- read_csv("小学校マスター.csv")
 
 #得点データ
-data0 <- read_csv("H29小学校標準化得点.csv")
+data0 <- read_csv("H28小学校標準化得点.csv")
 
 #得点データと緯度経度を結合
 data <- left_join(data0, master, by=c("小学校"="学校名"))
@@ -29,16 +29,16 @@ column <- colnames(data)
 
 for (i in 2:21){
   #書き出しファイル設定
-  quartz(type="pdf", file=sprintf("平成29年度小学校%s.pdf", column[i]))
+  quartz(type="pdf", file=sprintf("平成28年度小学校%s.pdf", column[i]))
 
   #mexで境界線全体の拡大率を操作
   par(mex="0.3", family="HiraKakuProN-W3")
 
   #境界線描画
-  plot(st_geometry(shape[1:24,1]), main=paste("平成29年度　", column[i], "　標準化得点" , sep=""))
+  plot(st_geometry(shape[1:24,1]), main=paste("平成28年度　", column[i], "　標準化得点" , sep=""))
 
   #小学校の色付け　点数を　赤黄青 色をkmeansで
-  color <- data[[column[i]]] %>% classIntervals(., 8, style="kmeans") %>% findColours(.,pal=brewer.pal(8,"RdYlBu"))
+  color <- data[[column[i]]] %>% classIntervals(., 6, style="kmeans") %>% findColours(.,pal=brewer.pal(6,"RdYlBu"))
 
   #小学校をpointで描画
   points(data$X, data$Y, ps=24, pch=16, col=color)
