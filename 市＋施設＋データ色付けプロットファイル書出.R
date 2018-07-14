@@ -1,4 +1,4 @@
-#全小学校　得点に応じて色付けしてプロット
+#施設　データに応じて色付けしてプロット
 #前処理：元データのヘッダーを整形
 #前処理：元データをUTF-8でエクスポート
 
@@ -15,21 +15,22 @@ setwd("~/Desktop/work")
 #シェープファイル読み込み eStatから大阪府全体のファイル
 shape <- st_read("h27_did_27.shp")
 
-#全小学校の緯度経度ファイル
-master <- read_csv("小学校マスター.csv")
+#施設の緯度経度ファイル
+master <- read_csv("xxxx.csv")
 
-#得点データ
-data0 <- read_csv("H28小学校標準化得点.csv")
+#データ
+data0 <- read_csv("xxxx.csv")
 
-#得点データと緯度経度を結合
-data <- left_join(data0, master, by=c("小学校"="学校名"))
+#データと緯度経度を結合
+data <- left_join(data0, master, by=c("hoge"="fuga"))
 
 #得点表示で使うため項目名を代入
 column <- colnames(data)
 
+#データ項目数分ループ　描画とファイル書き出し
 for (i in 2:21){
   #書き出しファイル設定
-  quartz(type="pdf", file=sprintf("平成28年度小学校%s.pdf", column[i]))
+  quartz(type="pdf", file=sprintf("XXXX%s.pdf", column[i]))
 
   #mexで境界線全体の拡大率を操作
   par(mex="0.3", family="HiraKakuProN-W3")
@@ -37,13 +38,13 @@ for (i in 2:21){
   #境界線描画
   plot(st_geometry(shape[1:24,1]), main=paste("平成28年度　", column[i], "　標準化得点" , sep=""))
 
-  #小学校の色付け　点数を　赤黄青 色をkmeansで
+  #色付け　点数を　赤黄青 色をkmeansで
   color <- data[[column[i]]] %>% classIntervals(., 6, style="kmeans") %>% findColours(.,pal=brewer.pal(6,"RdYlBu"))
 
-  #小学校をpointで描画
+  #施設をpointで描画
   points(data$X, data$Y, ps=24, pch=16, col=color)
 
-  #点数をY座標ずらして描画
+  #データをY座標ずらして描画
   text(data$X, data$Y-0.0024, labels=data[[column[i]]], cex=0.5)
 
   #描画終了
