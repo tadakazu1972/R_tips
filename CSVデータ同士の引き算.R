@@ -8,5 +8,8 @@ data2 <- read.csv("yyyy.csv", row.names=1)
 #行列減算
 data3 <- data1 - data2
 
+#減算の結果、小数点が10桁以上になることがあるので、小数点以下1桁で揃える
+data3 <- format(data3, digits=1)
+
 #ファイル書き出し
 write.csv(data3, "zzzz.csv")
