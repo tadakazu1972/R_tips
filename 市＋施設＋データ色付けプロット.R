@@ -30,8 +30,8 @@ par(mex="0.3", family="HiraKakuProN-W3")
 #境界線描画
 plot(st_geometry(shape[1:24,1]), main=paste("平成28年度　", column[4], "　標準化得点" , sep=""))
 
-#色付け　データを　赤黄青 色をkmeansで
-color <- data[[column[4]]] %>% classIntervals(., 6, style="kmeans") %>% findColours(.,pal=brewer.pal(6,"RdYlBu"))
+#色付け 赤黄青 100を中心として標準偏差
+color <- data[[column[i]]] %>% classIntervals(., 6, style="fixed", fixedBreaks=c(70,80,90,100,110,120,max(.))) %>% findColours(.,pal=brewer.pal(6,"RdYlBu"))
 
 #施設をpointで描画
 points(data$X, data$Y, ps=24, pch=16, col=color)
