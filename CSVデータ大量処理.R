@@ -12,11 +12,5 @@ data[is.na(data)] <- 0
 #データ項目を呼び出ししやすくするため項目名を代入
 column <- colnames(data)
 
-#データ項目名が数字で始まるため``で囲む　data$`1`
-#data1 <- data %>% group_by(学校名) %>% summarise(avg=mean(data$`1`))
-
-#全部のカラムがmeanで計算される
-data1 <- data %>% group_by(学校名) %>% summarise_all(mean)
-
-#学校名と9:43しかなくなる
-data2 <- data %>% group_by(学校名) %>% select(9:43) %>% summarise_all(mean)
+#学校別、学年別、アンケート全項目平均（学校、学年で２つカラムが減るので7:41）
+data1 <- data %>% group_by(学校名,学年) %>% summarise_at(c(7:41),mean)
