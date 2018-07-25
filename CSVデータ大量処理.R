@@ -15,5 +15,5 @@ column <- colnames(data)
 #集約
 data1 <- data %>% group_by(学校名,学年) %>% summarise_at(c(9:43),mean)
 
-#csv書き出し 標準はutf-8になるので、あとでExcelで読めるようにCP932でエンコーディング
-write.csv(data1, "xxxx.csv", fileEncoding="CP932")
+#csv書き出し 標準はutf-8になるので、あとでExcelで読めるようにCP932でエンコーディング　行見出しを自動でつけない指定あり
+write.csv(data1, "xxxx.csv", fileEncoding="CP932", row.names=FALSE)
