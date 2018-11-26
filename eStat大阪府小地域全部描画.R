@@ -13,3 +13,7 @@ shape <- st_read("h27ka27.shp") #eStat‚©‚ç‘åã•{‚ðŽæ“¾
 
 #‹«ŠEü‚ð”Z‚¢—Î‚Å•`‰æ
 plot(shape[,2], border='green4')
+
+#¢‘Ñ/lŒû@‰ÂŽ‹‰»
+shape <- shape %>% mutate(TANSIN=SETAI/JINKO)
+plot(shape[,36])
