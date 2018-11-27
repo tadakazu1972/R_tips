@@ -17,3 +17,6 @@ plot(shape[,2], border='green4')
 #¢‘Ñ/lŒû@‰Â‹‰»
 shape <- shape %>% mutate(TANSIN=SETAI/JINKO)
 plot(shape[,36])
+
+#‘åãs‚Ì‚İ•`‰æ
+plot(shape[2:1914,36])
