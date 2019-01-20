@@ -18,7 +18,7 @@ data1 <- read.csv("ƒCƒ“ƒtƒ‹ŠwZ2018_19.csv", fileEncoding="CP932")
 data <- left_join(shape, data1, by=c("NL_NAME_1"="“s“¹•{Œ§"))
 
 #F@Œ‡ÈŽÒ”‚Ì‚Æ‚«
-col_km <- data$Š³ŽÒ” %>% classIntervals(., 7, style="fixed", fixedBreaks=c(min(.),100,300,700,1000,2000,max(.))) %>% findColours(.,pal=brewer.pal(7,"Reds"))
+col_km <- data$Œ‡ÈŽÒ” %>% classIntervals(., 7, style="fixed", fixedBreaks=c(min(.),100,300,700,1000,2000,max(.))) %>% findColours(.,pal=brewer.pal(7,"Reds"))
 
 #•¶Žš‰»‚¯
 par(family="HiraKakuProN-W3")
