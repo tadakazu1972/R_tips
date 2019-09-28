@@ -11,13 +11,27 @@ setwd("~/Desktop/地価公示/")
 #eStatから取得 .dbf .prj .shxも合わせて作業ディレクトリ下部のshapeフォルダに入れておくべし
 shape0 <- st_read(dsn = "~/Desktop/地価公示/base/", layer = "N03-19_27_190101")
 
+#Windows WSLのフォルダパス
+#shape0 <- st_read(dsn = "/Users/tadakazu/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/tadakazu/R_tips/地価公示/base", layer = "N03-19_27_190101")
+
+#タイトルラベルの設定
+name="大阪府"
+
 #境界　描画
 par(new=TRUE, mex="0.2", family="HiraKakuProN-W3", xpd=TRUE, xaxt="n")
-plot(st_geometry(shape0[,4]), xlim=c(135.0913,135.7466), ylim=c(34.27182,35.05129), main=paste(kuname, " ", "地価公示 (2019年)", sep=""))
+
+#Windows
+#par(new=TRUE, mex="0.2", xpd=TRUE, xaxt="n")
+#windowsFonts(MEI = windowsFont("Meiryo"))
+
+plot(st_geometry(shape0[,4]), xlim=c(135.0913,135.7466), ylim=c(34.27182,35.05129), main=paste(name, " ", "地価公示 (2019年)", sep=""))
 
 #次に代表地点の地価公示を描く
 #地価公示シェープファイル読込
 shape <- st_read(dsn = "~/Desktop/地価公示/H31/", layer = "L01-19_27")
+
+#windows H31/と最後に/を入れるとエラー
+#shape <- st_read(dsn = "/Users/tadakazu/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/tadakazu/R_tips/地価公示/H31", layer = "L01-19_27")
 
 #公示価格　標準地の地価.単位を「円/m2」とする。
 #Factor型を数値に変換するのだが、一度文字変換してからでないとカテゴリーを変換してしまう
@@ -25,7 +39,6 @@ data = as.numeric(as.character(shape$L01_006))
 
 #カラム名取得
 column = colnames(data)
-kuname="大阪府"
 
 #色
 #col_km <- data %>% classIntervals(., 8, style="kmeans") %>% findColours(.,pal=rev(brewer.pal(10,"Spectral")))
@@ -34,6 +47,10 @@ col_km <- data %>% classIntervals(., 11, style="fixed", fixedBreaks=c(0,5000,100
 
 #代表地点　描画 xlimとylimをshape0と合わせないとずれる
 par(new=TRUE, mex="0.2", family="HiraKakuProN-W3", xpd=TRUE, xaxt="n")
+
+#windows
+#par(new=TRUE, mex="0.2", xpd=TRUE, xaxt="n")
+
 plot(st_geometry(shape[,6]), pch=16, cex=0.8, col=col_km, xlim=c(135.0913,135.7466), ylim=c(34.27182,35.05129))
 
 #凡例
