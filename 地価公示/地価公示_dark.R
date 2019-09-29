@@ -36,6 +36,8 @@ plot(st_geometry(shape[,6]), pch=18, cex=1, col=col_km, xlim=c(135.0913,135.7466
 ############################################
 #“S“¹@•`‰æ
 #“S“¹@ƒVƒF[ƒvƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+rails <- st_read(dsn = "~/Desktop/’n‰¿Œö¦/rails", layer = "N02-18_RailroadSection")
+
 #Windows WSL
 #rails <- st_read(dsn = "/Users/tadakazu/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/tadakazu/R_tips/’n‰¿Œö¦/rails", layer = "N02-18_RailroadSection")
 
@@ -47,7 +49,7 @@ plot(st_geometry(rails), xlim=c(135.0913,135.7466), ylim=c(34.27182,35.05129), l
 #s­‹æˆæ@•`‰æ
 #s­‹æˆæ@ƒVƒF[ƒvƒtƒ@ƒCƒ‹“Ç
 #‘“y”’lî•ñ‚©‚çæ“¾ .dbf .prj .shx‚à‡‚í‚¹‚Äì‹ÆƒfƒBƒŒƒNƒgƒŠ‰º•”ƒtƒHƒ‹ƒ_‚É“ü‚ê‚Ä‚¨‚­‚×‚µ
-shape0 <- st_read(dsn = "~/Desktop/’n‰¿Œö¦/base/", layer = "N03-19_27_190101")
+shape0 <- st_read(dsn = "~/Desktop/’n‰¿Œö¦/base", layer = "N03-19_27_190101")
 
 #Windows WSL‚Ìê‡ƒpƒX
 #shape0 <- st_read(dsn = "/Users/tadakazu/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/tadakazu/R_tips/’n‰¿Œö¦/base", layer = "N03-19_27_190101")
@@ -58,4 +60,4 @@ plot(st_geometry(shape0[,4]), xlim=c(135.0913,135.7466), ylim=c(34.27182,35.0512
 
 ##########################################
 #–}—á
-legend("topleft", legend=c("5,000‰~/‡u","10,000‰~/‡u","30,000‰~/‡u","50,000‰~/‡u","100,000‰~/‡u","200,000‰~/‡u","300,000‰~/‡u","500,000‰~/‡u","1,000,000‰~/‡u"), pch=c(16,16,16,16,16,16,16,16), lty=c(1,2,3,4,5,6,7,8), col=c("#5E4FA2","#3288BD","#66C2A5","#ABDDA4","#E6F598","#FEE08B","#FDAE61","#F46D43","#D53E4F","#9E0142"), cex=0.8, bg="white")
+legend("topleft", legend=c("5,000‰~/‡u","10,000‰~/‡u","30,000‰~/‡u","50,000‰~/‡u","100,000‰~/‡u","200,000‰~/‡u","300,000‰~/‡u","500,000‰~/‡u","1,000,000‰~/‡u"), pch=c(16,16,16,16,16,16,16,16), lty=c(1,2,3,4,5,6,7,8), col=c("#5E4FA2","#3288BD","#66C2A5","#ABDDA4","#E6F598","#FEE08B","#FDAE61","#F46D43","#D53E4F","#9E0142"), cex=0.8, text.col="white", bg="black")

@@ -17,7 +17,7 @@ par(mex="0.2", family="HiraKakuProN-W3", xpd=FALSE, xaxt="n")
 ##########################################
 #地価公示　描画
 #地価公示　シェープファイル読込
-shape <- st_read(dsn = "~/Desktop/地価公示/H31/", layer = "L01-19_27")
+shape <- st_read(dsn = "~/Desktop/地価公示/H31", layer = "L01-19_27")
 
 #windows H31/と最後に/を入れるとエラー
 #shape <- st_read(dsn = "/Users/tadakazu/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/tadakazu/R_tips/地価公示/H31", layer = "L01-19_27")
@@ -36,6 +36,8 @@ plot(st_geometry(shape[,6]), pch=16, cex=1, col=col_km, xlim=c(135.0913,135.7466
 ############################################
 #鉄道　描画
 #鉄道　シェープファイル読み込み
+rails <- st_read(dsn = "~/Desktop/地価公示/rails", layer = "N02-18_RailroadSection")
+
 #Windows WSL
 #rails <- st_read(dsn = "/Users/tadakazu/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/tadakazu/R_tips/地価公示/rails", layer = "N02-18_RailroadSection")
 
@@ -47,7 +49,7 @@ plot(st_geometry(rails), xlim=c(135.0913,135.7466), ylim=c(34.27182,35.05129), l
 #行政区域　描画
 #行政区域　シェープファイル読込
 #国土数値情報から取得 .dbf .prj .shxも合わせて作業ディレクトリ下部フォルダに入れておくべし
-shape0 <- st_read(dsn = "~/Desktop/地価公示/base/", layer = "N03-19_27_190101")
+shape0 <- st_read(dsn = "~/Desktop/地価公示/base", layer = "N03-19_27_190101")
 
 #Windows WSLの場合パス
 #shape0 <- st_read(dsn = "/Users/tadakazu/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/tadakazu/R_tips/地価公示/base", layer = "N03-19_27_190101")
