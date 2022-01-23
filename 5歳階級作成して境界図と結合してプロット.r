@@ -1,6 +1,9 @@
 # 5歳階級作成して境界図と結合してプロット
 library(dplyr)
 library(readr)
+library(sf)
+library(RColorBrewer)
+library(classInt)
 
 # 必要なファイル読込
 # eStatから大阪府を取得
@@ -34,6 +37,14 @@ write.csv(data2, "all_sum.csv")
 # 境界図と統合
 data <- left_join(shape, data2, by=c("S_NAME"="町丁目名"))
 
+# 色の設定
+# データの区切りを75歳以上を見たいので50で区切ってみる
+# 大きい値を明るく、小さい値を暗くしたいのでrev()を使用
+temp = data2[,124]
+colset <- temp %>% classIntervals(., 10, style="fixed", fixedBreaks=c(49,50,100,150,200,250,300,350,400,450,max(.))) %>% findColours(.,pal=rev(brewer.pal(10,"YlGnBu")))
+
+colset <- classIntervals(data[,158], 10, style="fixed", fixedBreaks=c(49,50,100,150,200,250,300,350,400,450)) %>% findColours(.,pal=rev(brewer.pal(10,"YlGnBu")))
+
 # 可視化　2:1914が大阪府のうち大阪市の町丁目の範囲
 # 145:60-64歳 - 158:75歳以上
-plot(data[2:1914, 145])
+plot(data[2:1914, 145], col=colset)
